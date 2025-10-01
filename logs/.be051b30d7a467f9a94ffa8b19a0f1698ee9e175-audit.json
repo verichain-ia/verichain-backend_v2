@@ -1,0 +1,25 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/Users/macbookpro/Desktop/verichain/verichain-v2/backend/logs/.be051b30d7a467f9a94ffa8b19a0f1698ee9e175-audit.json",
+    "files": [
+        {
+            "date": 1758941169906,
+            "name": "/Users/macbookpro/Desktop/verichain/verichain-v2/backend/logs/combined-2025-09-26.log",
+            "hash": "cad98ac9963635ea4368e4c37039f87f8942868a604f6f3840445c23ac6a2fe1"
+        },
+        {
+            "date": 1758999082384,
+            "name": "/Users/macbookpro/Desktop/verichain/verichain-v2/backend/logs/combined-2025-09-27.log",
+            "hash": "902df529160d90c5985b8d98048fe7db4a335d118dff50316758340d35bad6e1"
+        },
+        {
+            "date": 1759260062203,
+            "name": "/Users/macbookpro/Desktop/verichain/verichain-v2/backend/logs/combined-2025-09-30.log",
+            "hash": "1b2bd8635d2128346a607d13868e9ab5c6ba856ac1eef96eef181ab363f615ac"
+        }
+    ],
+    "hashType": "sha256"
+}

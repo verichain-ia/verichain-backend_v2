@@ -1,0 +1,167 @@
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 14:21:02"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 14:21:42"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 14:21:54"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 14:22:45"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 14:23:07"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 15:04:19"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 15:04:19"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 15:04:19"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 15:05:18"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 15:05:19"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 15:05:19"}
+{"level":"info","message":"Processing new request with idempotency key: test-1759263009","timestamp":"2025-09-30 15:12:31"}
+{"level":"info","message":"Starting transaction txn_1759263151581_wp2eaz92m","timestamp":"2025-09-30 15:12:32"}
+{"level":"info","message":"Transaction txn_1759263151581_wp2eaz92m completed successfully","timestamp":"2025-09-30 15:12:32"}
+{"level":"info","message":"Certificate TEST-MG6ZUW0B4361 created by user 0bc909ee-cebf-4e74-ba5f-613e43613b0b","timestamp":"2025-09-30 15:12:33"}
+{"level":"info","message":"Cached response for idempotency key: test-1759263009","timestamp":"2025-09-30 15:12:33"}
+{"level":"info","message":"Returning cached response for idempotency key: test-1759263009","timestamp":"2025-09-30 15:14:17"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 15:18:04"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 15:18:04"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 15:18:04"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 15:39:42"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 15:39:42"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 15:39:42"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 16:25:45"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 16:25:45"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 16:25:45"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 16:30:06"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 16:30:06"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 16:30:06"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 16:33:30"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 16:33:30"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 16:33:30"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 16:34:05"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 16:34:05"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 16:34:05"}
+{"level":"info","message":"Processing new request with idempotency key: test-1759268602","timestamp":"2025-09-30 16:43:22"}
+{"level":"info","message":"Starting transaction txn_1759268602924_fxz1nwzg6","timestamp":"2025-09-30 16:43:23"}
+{"level":"info","message":"Transaction txn_1759268602924_fxz1nwzg6 completed successfully","timestamp":"2025-09-30 16:43:24"}
+{"level":"info","message":"Certificate TEST-MG733QA5366F created by user 0bc909ee-cebf-4e74-ba5f-613e43613b0b","timestamp":"2025-09-30 16:43:24"}
+{"level":"info","message":"Cached response for idempotency key: test-1759268602","timestamp":"2025-09-30 16:43:24"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 16:51:09"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 16:51:09"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 16:51:09"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 16:51:21"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 16:51:21"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 16:51:21"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 16:51:35"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 16:51:35"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 16:51:35"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 16:54:22"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 16:54:22"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 16:54:22"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 16:56:39"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 16:56:39"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 16:56:39"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 16:58:08"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 16:58:08"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 16:58:08"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:01:17"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:01:17"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:01:17"}
+{"level":"info","message":"Processing new request with idempotency key: circuit-test-1759270110","timestamp":"2025-09-30 17:08:30"}
+{"level":"info","message":"Starting transaction txn_1759270110550_5u427o3v9","timestamp":"2025-09-30 17:08:31"}
+{"level":"info","message":"Transaction txn_1759270110550_5u427o3v9 completed successfully","timestamp":"2025-09-30 17:08:31"}
+{"level":"info","message":"Certificate TEST-MG7401F5C7B6 created by user 0bc909ee-cebf-4e74-ba5f-613e43613b0b","timestamp":"2025-09-30 17:08:31"}
+{"level":"info","message":"Cached response for idempotency key: circuit-test-1759270110","timestamp":"2025-09-30 17:08:31"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:18:25"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:18:25"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:18:25"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:18:41"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:18:42"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:18:42"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:18:52"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:18:52"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:18:52"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:19:26"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:19:26"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:19:26"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:20:14"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:20:14"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:20:14"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:21:31"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:21:31"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:21:31"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:21:37"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:21:37"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:21:37"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:22:12"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:22:12"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:22:12"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:25:23"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:25:23"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:25:23"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:26:08"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:26:08"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:26:08"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:29:10"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:29:10"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:29:10"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:29:36"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:29:36"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:29:36"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:30:56"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:30:56"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:30:56"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:31:57"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:31:57"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:31:57"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:33:52"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:33:52"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:33:52"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:39:23"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:39:23"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:39:23"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:39:38"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:39:38"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:39:38"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:39:51"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:39:51"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:39:51"}
+{"level":"error","message":{"error":{"message":"Cannot set property query of #<IncomingMessage> which has only a getter","stack":"TypeError: Cannot set property query of #<IncomingMessage> which has only a getter\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/express-mongo-sanitize/index.js:113:18\n    at Array.forEach (<anonymous>)\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/express-mongo-sanitize/index.js:110:44\n    at Layer.handleRequest (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:342:13)\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:297:9\n    at processParams (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:582:12)\n    at next (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:291:5)\n    at jsonParser (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/body-parser/lib/types/json.js:100:7)\n    at Layer.handleRequest (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/lib/layer.js:152:17)"},"request":{"ip":"127.0.0.1","method":"HEAD","url":"/health"}},"timestamp":"2025-09-30 17:40:27"}
+{"level":"error","message":{"error":{"message":"Cannot set property query of #<IncomingMessage> which has only a getter","stack":"TypeError: Cannot set property query of #<IncomingMessage> which has only a getter\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/express-mongo-sanitize/index.js:113:18\n    at Array.forEach (<anonymous>)\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/express-mongo-sanitize/index.js:110:44\n    at Layer.handleRequest (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:342:13)\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:297:9\n    at processParams (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:582:12)\n    at next (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:291:5)\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/body-parser/lib/read.js:132:5\n    at AsyncResource.runInAsyncScope (node:async_hooks:214:14)"},"request":{"ip":"127.0.0.1","method":"POST","url":"/api/v1/auth/login"}},"timestamp":"2025-09-30 17:40:43"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:43:46"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:43:46"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:43:46"}
+{"level":"error","message":{"error":{"message":"Cannot set property query of #<IncomingMessage> which has only a getter","stack":"TypeError: Cannot set property query of #<IncomingMessage> which has only a getter\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/express-mongo-sanitize/index.js:113:18\n    at Array.forEach (<anonymous>)\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/express-mongo-sanitize/index.js:110:44\n    at Layer.handleRequest (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:342:13)\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:297:9\n    at processParams (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:582:12)\n    at next (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:291:5)\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/body-parser/lib/read.js:132:5\n    at AsyncResource.runInAsyncScope (node:async_hooks:214:14)"},"request":{"ip":"127.0.0.1","method":"POST","url":"/api/v1/auth/login"}},"timestamp":"2025-09-30 17:46:46"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 17:48:23"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 17:48:23"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 17:48:23"}
+{"level":"error","message":"Sanitizer error: Cannot set property query of #<IncomingMessage> which has only a getter","stack":"TypeError: Cannot set property query of #<IncomingMessage> which has only a getter\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/src/middleware/sanitizer.js:23:21\n    at Layer.handleRequest (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:342:13)\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:297:9\n    at processParams (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:582:12)\n    at next (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:291:5)\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/body-parser/lib/read.js:132:5\n    at AsyncResource.runInAsyncScope (node:async_hooks:214:14)\n    at invokeCallback (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/raw-body/index.js:238:16)\n    at done (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/raw-body/index.js:227:7)","timestamp":"2025-09-30 17:48:36"}
+{"level":"info","message":"Refresh token stored for user 0bc909ee-cebf-4e74-ba5f-613e43613b0b, family 548be1c9618e091ddd5cadf870e63f11","timestamp":"2025-09-30 17:48:37"}
+{"level":"error","message":"Sanitizer error: Cannot set property query of #<IncomingMessage> which has only a getter","stack":"TypeError: Cannot set property query of #<IncomingMessage> which has only a getter\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/src/middleware/sanitizer.js:23:21\n    at Layer.handleRequest (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:342:13)\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:297:9\n    at processParams (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:582:12)\n    at next (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:291:5)\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/body-parser/lib/read.js:132:5\n    at AsyncResource.runInAsyncScope (node:async_hooks:214:14)\n    at invokeCallback (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/raw-body/index.js:238:16)\n    at done (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/raw-body/index.js:227:7)","timestamp":"2025-09-30 17:51:12"}
+{"level":"error","message":"jwt malformed","name":"JsonWebTokenError","stack":"JsonWebTokenError: jwt malformed\n    at module.exports [as verify] (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/jsonwebtoken/verify.js:70:17)\n    at TokenService.rotateRefreshToken (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/src/services/tokenService.js:65:27)\n    at refreshToken (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/src/controllers/authController.js:154:43)\n    at Layer.handleRequest (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/lib/route.js:157:13)\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/src/middleware/validation/validator.js:22:9\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2025-09-30 17:51:12"}
+{"0":"j","1":"w","10":"m","11":"e","12":"d","2":"t","3":" ","4":"m","5":"a","6":"l","7":"f","8":"o","9":"r","level":"warn","message":"Token rotation failed:","timestamp":"2025-09-30 17:51:12"}
+{"level":"error","message":{"error":{"code":"AUTH_ERROR","message":"Invalid or expired refresh token","stack":"Error: Invalid or expired refresh token\n    at refreshToken (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/src/controllers/authController.js:164:15)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","statusCode":401},"request":{"ip":"127.0.0.1","method":"POST","url":"/api/v1/auth/refresh"}},"timestamp":"2025-09-30 17:51:12"}
+{"level":"warn","message":"NoSQL injection attempt blocked in body","timestamp":"2025-09-30 17:51:25"}
+{"level":"error","message":"Sanitizer error: Cannot set property query of #<IncomingMessage> which has only a getter","stack":"TypeError: Cannot set property query of #<IncomingMessage> which has only a getter\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/src/middleware/sanitizer.js:23:21\n    at Layer.handleRequest (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:342:13)\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:297:9\n    at processParams (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:582:12)\n    at next (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:291:5)\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/body-parser/lib/read.js:132:5\n    at AsyncResource.runInAsyncScope (node:async_hooks:214:14)\n    at invokeCallback (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/raw-body/index.js:238:16)\n    at done (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/raw-body/index.js:227:7)","timestamp":"2025-09-30 17:51:25"}
+{"level":"error","message":"Sanitizer error: Cannot set property query of #<IncomingMessage> which has only a getter","stack":"TypeError: Cannot set property query of #<IncomingMessage> which has only a getter\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/src/middleware/sanitizer.js:23:21\n    at Layer.handleRequest (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:342:13)\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:297:9\n    at processParams (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:582:12)\n    at next (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/router/index.js:291:5)\n    at /Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/body-parser/lib/read.js:132:5\n    at AsyncResource.runInAsyncScope (node:async_hooks:214:14)\n    at invokeCallback (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/raw-body/index.js:238:16)\n    at done (/Users/macbookpro/Desktop/verichain/verichain-v2/backend/node_modules/raw-body/index.js:227:7)","timestamp":"2025-09-30 17:53:01"}
+{"level":"info","message":"Refresh token stored for user 0bc909ee-cebf-4e74-ba5f-613e43613b0b, family fd4bbe6b736d3d9704d0d4ead15015ac","timestamp":"2025-09-30 17:53:01"}
+{"level":"info","message":"Token rotated for user 0bc909ee-cebf-4e74-ba5f-613e43613b0b","timestamp":"2025-09-30 17:53:01"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 20:22:58"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 20:22:58"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 20:22:58"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 20:23:40"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 20:23:40"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 20:23:40"}
+{"level":"info","message":"Refresh token stored for user 0bc909ee-cebf-4e74-ba5f-613e43613b0b, family eb446303ae9f0c6f4eae53a84a118b3c","timestamp":"2025-09-30 20:24:03"}
+{"level":"info","message":"Refresh token stored for user 0bc909ee-cebf-4e74-ba5f-613e43613b0b, family 6260bba72dacffc784566713f4c849d7","timestamp":"2025-09-30 20:39:15"}
+{"level":"info","message":"Refresh token stored for user 0bc909ee-cebf-4e74-ba5f-613e43613b0b, family ae52e7d0a085460faee757b422228dcd","timestamp":"2025-09-30 21:09:33"}
+{"level":"info","message":"Refresh token stored for user 0bc909ee-cebf-4e74-ba5f-613e43613b0b, family 9e6c939338bb1ab3e0165f278a3fc3a8","timestamp":"2025-09-30 21:16:31"}
+{"level":"info","message":"Refresh token stored for user 0bc909ee-cebf-4e74-ba5f-613e43613b0b, family 8226d8b9c17f96e673cd342f58aa0c2c","timestamp":"2025-09-30 21:28:16"}
+{"details":null,"level":"error","message":"API Error: INTERNAL_ERROR - 2FA setup expired. Please start again","request_id":"3ca042f4-535f-4eb0-8238-e97840e35092","status":400,"timestamp":"2025-09-30 21:39:44"}
+{"details":null,"level":"error","message":"API Error: INTERNAL_ERROR - Invalid 2FA token","request_id":"78c59610-0fbf-4efd-a613-bdb97bdfe4cd","status":400,"timestamp":"2025-09-30 21:40:54"}
+{"level":"info","message":"Refresh token stored for user 0bc909ee-cebf-4e74-ba5f-613e43613b0b, family 418df6901779f9301503139a305a6698","timestamp":"2025-09-30 21:41:08"}
+{"details":null,"level":"error","message":"API Error: INTERNAL_ERROR - Invalid 2FA token","request_id":"60ba8054-abcb-4c46-afb4-94137f5498a7","status":400,"timestamp":"2025-09-30 21:41:56"}
+{"details":null,"level":"error","message":"API Error: INTERNAL_ERROR - Invalid 2FA token","request_id":"fc435a6e-7475-4d3a-9b68-1528e941b5bb","status":400,"timestamp":"2025-09-30 21:42:23"}
+{"level":"info","message":"Refresh token stored for user 0bc909ee-cebf-4e74-ba5f-613e43613b0b, family ad55781f863e2e507acb164514ff4105","timestamp":"2025-09-30 21:43:11"}
+{"details":null,"level":"error","message":"API Error: INTERNAL_ERROR - Invalid 2FA token","request_id":"22dbdf00-63f7-4ff0-aa2b-3c03adf5b46d","status":400,"timestamp":"2025-09-30 21:45:11"}
+{"level":"info","message":"2FA enabled for user 0bc909ee-cebf-4e74-ba5f-613e43613b0b","timestamp":"2025-09-30 21:47:13"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 21:52:38"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 21:52:38"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 21:52:38"}
+{"level":"info","message":"Server started on port 4000","timestamp":"2025-09-30 21:53:33"}
+{"level":"info","message":"Redis client connected successfully","timestamp":"2025-09-30 21:53:33"}
+{"level":"info","message":"Redis client ready to use","timestamp":"2025-09-30 21:53:33"}
+{"level":"info","message":"Refresh token stored for user 0bc909ee-cebf-4e74-ba5f-613e43613b0b, family da5c9a985221942964002149c42c384e","timestamp":"2025-09-30 21:55:50"}
+{"level":"info","message":"2FA enabled for user 0bc909ee-cebf-4e74-ba5f-613e43613b0b","timestamp":"2025-09-30 21:58:43"}
