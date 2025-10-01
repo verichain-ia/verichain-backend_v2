@@ -1,0 +1,23 @@
+# Variables de entorno
+.env
+.env.local
+.env.production
+.env.*
+
+# Dependencias
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Temporales
+tmp/
+temp/
