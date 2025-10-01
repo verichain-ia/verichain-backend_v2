@@ -15,6 +15,72 @@ const IdempotencyMiddleware = require('../../../middleware/idempotency');
 const ResponseFormatter = require('../../../middleware/responseFormatter');
 const CircuitBreakerFactory = require('../../../middleware/circuitBreaker');
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Certificate:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: Unique certificate identifier
+ *           example: "UNIV-MG2NUJ3M78CE"
+ *         organization_id:
+ *           type: string
+ *           format: uuid
+ *         student_name:
+ *           type: string
+ *         student_email:
+ *           type: string
+ *           format: email
+ *         student_id:
+ *           type: string
+ *         course_name:
+ *           type: string
+ *         course_code:
+ *           type: string
+ *         instructor_name:
+ *           type: string
+ *         issue_date:
+ *           type: string
+ *           format: date
+ *         graduation_date:
+ *           type: string
+ *           format: date
+ *         grade:
+ *           type: string
+ *         credits:
+ *           type: integer
+ *         blockchain_status:
+ *           type: string
+ *           enum: [pending, confirmed, failed]
+ *         tx_hash:
+ *           type: string
+ *         block_number:
+ *           type: integer
+ *         smart_contract_address:
+ *           type: string
+ *         verification_count:
+ *           type: integer
+ *         created_by:
+ *           type: string
+ *           format: uuid
+ *         metadata:
+ *           type: object
+ *         created_at:
+ *           type: string
+ *           format: date-time
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ * 
+ * tags:
+ *   - name: Certificates
+ *     description: Certificate management and verification operations
+ */
 
 // Aplicar sanitización global a todas las rutas
 router.use(ValidationMiddleware.sanitize());
@@ -91,6 +157,65 @@ async function generateCertificateId(organizationId) {
   
   return id.substring(0, 20); // Garantizar máximo 20 caracteres
 }
+/**
+ * @swagger
+ * /api/v1/certificates:
+ *   post:
+ *     summary: Create a new certificate
+ *     tags: [Certificates]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - student_name
+ *               - course_name
+ *             properties:
+ *               student_name:
+ *                 type: string
+ *                 description: Full name of the student
+ *                 example: "John Doe"
+ *               student_email:
+ *                 type: string
+ *                 format: email
+ *                 example: "john@example.com"
+ *               student_id:
+ *                 type: string
+ *                 example: "STD-2024-001"
+ *               course_name:
+ *                 type: string
+ *                 example: "Advanced Web Development"
+ *               course_code:
+ *                 type: string
+ *                 example: "CS-401"
+ *               instructor_name:
+ *                 type: string
+ *                 example: "Dr. Jane Smith"
+ *               graduation_date:
+ *                 type: string
+ *                 format: date
+ *               grade:
+ *                 type: string
+ *                 example: "A+"
+ *               credits:
+ *                 type: integer
+ *                 example: 4
+ *               metadata:
+ *                 type: object
+ *     responses:
+ *       201:
+ *         description: Certificate created successfully
+ *       400:
+ *         description: Invalid input data
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Insufficient permissions
+ */
 
 router.post('/', 
   protect,
@@ -211,6 +336,110 @@ router.post('/',
     }
   }
 );
+
+/**
+ * @swagger
+ * /api/v1/certificates:
+ *   get:
+ *     summary: List all certificates with filters and pagination
+ *     tags: [Certificates]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Page number
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 20
+ *           maximum: 100
+ *         description: Number of items per page
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *           enum: [pending, confirmed, failed]
+ *         description: Filter by blockchain status
+ *       - in: query
+ *         name: organization_id
+ *         schema:
+ *           type: string
+ *         description: Filter by organization ID
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Search in student name, email, course name, or certificate ID
+ *       - in: query
+ *         name: from_date
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Filter certificates issued after this date
+ *       - in: query
+ *         name: to_date
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Filter certificates issued before this date
+ *       - in: query
+ *         name: sort_by
+ *         schema:
+ *           type: string
+ *           enum: [created_at, issue_date, student_name, course_name, blockchain_status]
+ *           default: created_at
+ *       - in: query
+ *         name: sort_order
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *           default: desc
+ *     responses:
+ *       200:
+ *         description: List of certificates with pagination info
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Certificate'
+ *                 stats:
+ *                   type: object
+ *                   properties:
+ *                     total:
+ *                       type: integer
+ *                     confirmed:
+ *                       type: integer
+ *                     pending:
+ *                       type: integer
+ *                     failed:
+ *                       type: integer
+ *                 pagination:
+ *                   type: object
+ *                   properties:
+ *                     total:
+ *                       type: integer
+ *                     page:
+ *                       type: integer
+ *                     limit:
+ *                       type: integer
+ *                     pages:
+ *                       type: integer
+ *                     has_next:
+ *                       type: boolean
+ *                     has_prev:
+ *                       type: boolean
+ */
 
 // GET todos con filtros avanzados y paginación
 router.get('/',
@@ -334,6 +563,36 @@ router.get('/',
   }
 });
 
+/**
+ * @swagger
+ * /api/v1/certificates/{id}:
+ *   get:
+ *     summary: Get a certificate by ID
+ *     tags: [Certificates]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Certificate ID
+ *         example: "UNIV-MG2NUJ3M78CE"
+ *     responses:
+ *       200:
+ *         description: Certificate details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   $ref: '#/components/schemas/Certificate'
+ *       404:
+ *         description: Certificate not found
+ */
+
 // GET por ID (PÚBLICO para verificación)
 router.get('/:id', async (req, res) => {
   try {
@@ -374,6 +633,56 @@ router.get('/:id', async (req, res) => {
     });
   }
 });
+
+/**
+ * @swagger
+ * /api/v1/certificates/{id}/register-blockchain:
+ *   post:
+ *     summary: Register certificate on blockchain
+ *     tags: [Certificates]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Certificate ID to register
+ *     responses:
+ *       200:
+ *         description: Certificate registered on blockchain
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     certificate_id:
+ *                       type: string
+ *                     tx_hash:
+ *                       type: string
+ *                     block_number:
+ *                       type: integer
+ *                     certificate_hash:
+ *                       type: string
+ *                     explorer_url:
+ *                       type: string
+ *       400:
+ *         description: Certificate already registered
+ *       403:
+ *         description: Insufficient permissions
+ *       404:
+ *         description: Certificate not found
+ *       500:
+ *         description: Blockchain registration failed
+ */
 
 // REGISTRAR EN BLOCKCHAIN (PROTEGIDO)
 router.post('/:id/register-blockchain',
@@ -540,6 +849,66 @@ router.post('/:id/register-blockchain',
   }
 });
 
+/**
+ * @swagger
+ * /api/v1/certificates/{id}/verify:
+ *   get:
+ *     summary: Verify a certificate
+ *     tags: [Certificates]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Certificate ID to verify
+ *     responses:
+ *       200:
+ *         description: Certificate verification result
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 verified:
+ *                   type: boolean
+ *                 verification_id:
+ *                   type: string
+ *                 certificate:
+ *                   type: object
+ *                 organization:
+ *                   type: object
+ *                 blockchain:
+ *                   type: object
+ *                   properties:
+ *                     verified:
+ *                       type: boolean
+ *                     tx_hash:
+ *                       type: string
+ *                     block_number:
+ *                       type: integer
+ *                     explorer_url:
+ *                       type: string
+ *                 integrity:
+ *                   type: object
+ *                   properties:
+ *                     hash:
+ *                       type: string
+ *                     verified:
+ *                       type: boolean
+ *                 statistics:
+ *                   type: object
+ *                   properties:
+ *                     total_verifications:
+ *                       type: integer
+ *                     issued_date:
+ *                       type: string
+ *       404:
+ *         description: Certificate not found
+ */
+
 // VERIFICAR certificado (PÚBLICO)
 router.get('/:id/verify', async (req, res) => {
   try {
@@ -670,6 +1039,51 @@ router.get('/:id/verify', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /api/v1/certificates/{id}:
+ *   put:
+ *     summary: Update a certificate
+ *     tags: [Certificates]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Certificate ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               student_name:
+ *                 type: string
+ *               student_email:
+ *                 type: string
+ *               course_name:
+ *                 type: string
+ *               instructor_name:
+ *                 type: string
+ *               grade:
+ *                 type: string
+ *               credits:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: Certificate updated successfully
+ *       400:
+ *         description: Cannot modify blockchain-registered certificate
+ *       403:
+ *         description: Insufficient permissions
+ *       404:
+ *         description: Certificate not found
+ */
+
 // UPDATE certificado (PROTEGIDO)
 router.put('/:id',
   protect,
@@ -774,6 +1188,32 @@ router.put('/:id',
     });
   }
 });
+/**
+ * @swagger
+ * /api/v1/certificates/{id}:
+ *   delete:
+ *     summary: Delete a certificate
+ *     tags: [Certificates]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Certificate ID to delete
+ *     responses:
+ *       200:
+ *         description: Certificate deleted successfully
+ *       400:
+ *         description: Cannot delete blockchain-registered certificate
+ *       403:
+ *         description: Only super admin can delete
+ *       404:
+ *         description: Certificate not found
+ */
+
 
 // DELETE certificado (PROTEGIDO)
 router.delete('/:id', protect, async (req, res) => {
@@ -848,6 +1288,69 @@ router.delete('/:id', protect, async (req, res) => {
     });
   }
 });
+
+/**
+ * @swagger
+ * /api/v1/certificates/batch/register-blockchain:
+ *   post:
+ *     summary: Register multiple certificates on blockchain
+ *     tags: [Certificates]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - certificate_ids
+ *             properties:
+ *               certificate_ids:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                 description: Array of certificate IDs (max 10)
+ *                 example: ["CERT-001", "CERT-002", "CERT-003"]
+ *     responses:
+ *       200:
+ *         description: Batch registration results
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 results:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       certificate_id:
+ *                         type: string
+ *                       status:
+ *                         type: string
+ *                       tx_hash:
+ *                         type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       certificate_id:
+ *                         type: string
+ *                       status:
+ *                         type: string
+ *                       error:
+ *                         type: string
+ *       400:
+ *         description: Invalid input
+ *       403:
+ *         description: Insufficient permissions
+ */
 
 // BATCH - Registrar múltiples certificados en blockchain (PROTEGIDO)
 router.post('/batch/register-blockchain', protect, async (req, res) => {
