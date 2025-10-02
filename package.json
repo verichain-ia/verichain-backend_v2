@@ -4,9 +4,12 @@
   "description": "",
   "main": "authController.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:verbose": "jest --verbose"
   },
   "keywords": [],
   "author": "",
@@ -37,7 +40,7 @@
     "speakeasy": "^2.0.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
-    "uuid": "^13.0.0",
+    "uuid": "^9.0.1",
     "validator": "^13.15.15",
     "web3": "^4.16.0",
     "winston": "^3.17.0",
@@ -45,6 +48,12 @@
     "xss": "^1.0.15"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "@babel/core": "^7.28.4",
+    "@babel/preset-env": "^7.28.3",
+    "@types/jest": "^30.0.0",
+    "babel-jest": "^30.2.0",
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.4"
   }
 }
