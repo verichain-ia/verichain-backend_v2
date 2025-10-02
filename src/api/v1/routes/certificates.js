@@ -14,6 +14,7 @@ const logger = require('../../../utils/logger');
 const IdempotencyMiddleware = require('../../../middleware/idempotency');
 const ResponseFormatter = require('../../../middleware/responseFormatter');
 const CircuitBreakerFactory = require('../../../middleware/circuitBreaker');
+const cacheService = require('../../../services/cacheService');
 
 /**
  * @swagger
@@ -594,8 +595,20 @@ router.get('/',
  */
 
 // GET por ID (PÚBLICO para verificación)
+// GET por ID (PÚBLICO para verificación) - CON CACHE
 router.get('/:id', async (req, res) => {
   try {
+    // Intentar obtener desde cache primero
+    const cached = await cacheService.getCertificate(req.params.id);
+    if (cached) {
+      res.setHeader('X-Cache', 'HIT');
+      return res.json({ 
+        success: true, 
+        data: cached 
+      });
+    }
+
+    // Si no está en cache, buscar en DB
     const { data, error } = await supabaseService.supabase
       .from('certificates')
       .select(`
@@ -621,6 +634,10 @@ router.get('/:id', async (req, res) => {
       throw error;
     }
 
+    // Guardar en cache para próximas peticiones
+    await cacheService.setCertificate(req.params.id, data);
+    
+    res.setHeader('X-Cache', 'MISS');
     res.json({ 
       success: true, 
       data 
@@ -1175,7 +1192,10 @@ router.put('/:id',
         created_at: new Date().toISOString()
       });
 
-    res.json({
+    // Invalidar cache después de actualizar
+      await cacheService.invalidateCertificate(id);
+
+      res.json({
       success: true,
       data,
       message: 'Certificate updated successfully'
