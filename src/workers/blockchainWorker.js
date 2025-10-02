@@ -1,10 +1,11 @@
-const queueManager = require('../queues/queueConfig');
+const QueueManager = require('../queues/queueConfig');
 const paseoService = require('../services/blockchain/PaseoService');
 const supabaseAdmin = require('../services/supabaseAdmin');
 const logger = require('../utils/logger');
 
 class BlockchainWorker {
   async start() {
+    const queueManager = QueueManager.getInstance();
     const queue = await queueManager.getQueue('blockchainRegistration');
     
     queue.process('register-certificate', async (job) => {
@@ -89,6 +90,7 @@ class BlockchainWorker {
   }
   
   async stop() {
+    const queueManager = QueueManager.getInstance();
     const queue = await queueManager.getQueue('blockchainRegistration');
     await queue.close();
     logger.info('Blockchain worker stopped');

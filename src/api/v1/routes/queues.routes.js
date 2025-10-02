@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { protect } = require('../../../middleware/auth');
-const queueManager = require('../../../queues/queueConfig');
+const QueueManager = require('../../../queues/queueConfig');
 const ResponseFormatter = require('../../../middleware/responseFormatter');
 
 /**
@@ -119,7 +119,7 @@ router.get('/status', protect, async (req, res, next) => {
       });
     }
     
-    const status = await queueManager.getAllQueuesStatus();
+    const status = await QueueManager.getInstance().getAllQueuesStatus();
     
     ResponseFormatter.success(res, status);
   } catch (error) {

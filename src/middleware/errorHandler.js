@@ -1,12 +1,32 @@
 const logger = require('../utils/logger');
 const AppError = require('../errors/AppError');
+const ErrorTracker = require('../services/errorTracker');
 
 const errorHandler = (err, req, res, next) => {
   let error = { ...err };
   error.message = err.message;
 
-  // Log del error
+  // Obtener error tracker
+  const errorTracker = ErrorTracker.getInstance();
+  
+  // Contexto del error con correlation ID
+  const context = {
+    correlationId: req.correlationId,
+    userId: req.user?.id,
+    path: req.path,
+    method: req.method,
+    ip: req.ip,
+    userAgent: req.headers['user-agent']
+  };
+  
+  // Trackear el error
+  const { category, fingerprint } = errorTracker.trackError(err, context);
+
+  // Log del error (mejorado con correlation ID)
   logger.error({
+    correlationId: req.correlationId,  // AGREGADO
+    category,                           // AGREGADO
+    fingerprint,                        // AGREGADO
     error: {
       message: err.message,
       stack: err.stack,
@@ -46,10 +66,13 @@ const errorHandler = (err, req, res, next) => {
 
   res.status(error.statusCode || 500).json({
     success: false,
+    correlationId: req.correlationId,  // AGREGADO
     error: {
       code: error.code || 'SERVER_ERROR',
       message: error.message || 'Something went wrong',
       details: error.details || null,
+      category: isDevelopment ? category : undefined,      // AGREGADO
+      fingerprint: isDevelopment ? fingerprint : undefined, // AGREGADO
       ...(isDevelopment && { stack: err.stack })
     },
     ...(isDevelopment && { originalError: err.message })
@@ -60,6 +83,7 @@ const errorHandler = (err, req, res, next) => {
 const notFound = (req, res) => {
   res.status(404).json({
     success: false,
+    correlationId: req.correlationId,  // AGREGADO
     error: {
       code: 'ROUTE_NOT_FOUND',
       message: `Route ${req.originalUrl} not found`

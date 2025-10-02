@@ -8,6 +8,8 @@ const { apiLimiter } = require('./src/middleware/rateLimiter');
 const ResponseFormatter = require('./src/middleware/responseFormatter');
 const Sanitizer = require('./src/middleware/sanitizer');
 const logger = require('./src/utils/logger');
+const metricsMiddleware = require('./src/middleware/metrics');
+const correlationIdMiddleware = require('./src/middleware/correlationId');
 
 const app = express();
 
@@ -17,7 +19,10 @@ app.use(cors(securityConfig.cors));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(ResponseFormatter.addRequestId());
-app.use('/api/v1/cache', require('./src/api/v1/routes/cache.routes'));
+app.use(correlationIdMiddleware);
+
+// Metrics middleware - DEBE IR ANTES DE LAS RUTAS
+app.use(metricsMiddleware);
 
 // Logging de requests
 app.use((req, res, next) => {
@@ -64,7 +69,8 @@ const swaggerOptions = {
       { name: 'Metrics', description: 'Analytics and metrics' },
       { name: 'Queues', description: 'Queue management' },
       { name: '2FA', description: 'Two-factor authentication' },
-      { name: 'Cache', description: 'Cache management' }
+      { name: 'Cache', description: 'Cache management' },
+      { name: 'Monitoring', description: 'Health checks and metrics' }
     ]
   },
   apis: ['./src/api/v1/routes/*.js', './src/api/v1/routes/*.routes.js']
@@ -76,7 +82,11 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
   customSiteTitle: "VeriChain API Docs"
 }));
 
-// Health check - NO autenticación requerida
+// Monitoring routes - SIN AUTENTICACIÓN
+const monitoringRoutes = require('./src/api/v1/routes/monitoring.routes');
+app.use('/api/v1', monitoringRoutes);
+
+// Health check legacy - mantener para compatibilidad
 app.get('/health', async (req, res) => {
   const paseoService = require('./src/services/blockchain/PaseoService');
   const { supabase } = require('./src/services/supabaseService');
@@ -115,13 +125,20 @@ app.get('/', (req, res) => {
       postman: 'https://documenter.getpostman.com/view/verichain'
     },
     endpoints: {
-      health: '/health',
+      health: {
+        legacy: '/health',
+        live: '/api/v1/health/live',
+        ready: '/api/v1/health/ready',
+        startup: '/api/v1/health/startup',
+        detailed: '/api/v1/health'
+      },
+      metrics: '/api/v1/metrics',
       auth: '/api/v1/auth',
       certificates: '/api/v1/certificates',
       organizations: '/api/v1/organizations',
-      metrics: '/api/v1/metrics',
       queues: '/api/v1/queues',
-      '2fa': '/api/v1/2fa'
+      '2fa': '/api/v1/2fa',
+      cache: '/api/v1/cache'
     }
   });
 });
@@ -136,7 +153,9 @@ app.use('/api/v1/organizations', require('./src/api/v1/routes/organizations.rout
 app.use('/api/v1/metrics', require('./src/api/v1/routes/metrics.routes'));
 app.use('/api/v1/2fa', require('./src/api/v1/routes/twoFactor.routes'));
 app.use('/api/v1/queues', require('./src/api/v1/routes/queues.routes'));
+app.use('/api/v1/cache', require('./src/api/v1/routes/cache.routes'));
 app.use('/api/v1/diagnostics', require('./src/api/v1/routes/diagnostics.routes'));
+app.use('/api/v1/errors', require('./src/api/v1/routes/errors.routes'));
 
 // Error handlers - SIEMPRE AL FINAL
 const { errorHandler, notFound } = require('./src/middleware/errorHandler');
@@ -157,6 +176,7 @@ const server = app.listen(PORT, '0.0.0.0', async () => {
   console.log(`✅ Server: http://localhost:${PORT}`);
   console.log(`📚 Swagger: http://localhost:${PORT}/api-docs`);
   console.log(`📊 Health: http://localhost:${PORT}/health`);
+  console.log(`📈 Metrics: http://localhost:${PORT}/api/v1/metrics`);
   console.log('=====================================');
   console.log('📌 Endpoints disponibles:');
   console.log('   - Auth: /api/v1/auth/*');
@@ -165,6 +185,14 @@ const server = app.listen(PORT, '0.0.0.0', async () => {
   console.log('   - Metrics: /api/v1/metrics/*');
   console.log('   - Queues: /api/v1/queues/*');
   console.log('   - 2FA: /api/v1/2fa/*');
+  console.log('   - Cache: /api/v1/cache/*');
+  console.log('   - Health: /api/v1/health/*');
+  console.log('=====================================');
+  console.log('🔍 Monitoring endpoints:');
+  console.log('   - Liveness: /api/v1/health/live');
+  console.log('   - Readiness: /api/v1/health/ready');
+  console.log('   - Startup: /api/v1/health/startup');
+  console.log('   - Prometheus: /api/v1/metrics');
   console.log('=====================================\n');
   
   // Initialize services DESPUÉS de que el servidor esté corriendo
@@ -172,6 +200,11 @@ const server = app.listen(PORT, '0.0.0.0', async () => {
     // Initialize blockchain service
     const paseoService = require('./src/services/blockchain/PaseoService');
     logger.info('Blockchain service initialized');
+    
+    // Initialize metrics service
+    const metricsService = require('./src/services/metricsService');
+    const metrics = metricsService.getInstance();
+    logger.info('Metrics service initialized');
     
     // Initialize queue workers con delay para asegurar Redis está listo
     setTimeout(() => {
@@ -192,9 +225,39 @@ const server = app.listen(PORT, '0.0.0.0', async () => {
   }
 });
 
-// Graceful shutdown
+// Graceful shutdown mejorado
 process.on('SIGTERM', async () => {
   logger.info('SIGTERM signal received: closing HTTP server');
+  
+  // Cerrar Queue Manager
+  try {
+    const QueueManager = require('./src/queues/queueConfig');
+    const queueManager = QueueManager.getInstance();
+    await queueManager.closeAll();
+    logger.info('Queue connections closed');
+  } catch (error) {
+    logger.error('Error closing queues:', error);
+  }
+  
+  server.close(() => {
+    logger.info('HTTP server closed');
+    process.exit(0);
+  });
+});
+
+process.on('SIGINT', async () => {
+  logger.info('SIGINT signal received: closing HTTP server');
+  
+  // Cerrar Queue Manager
+  try {
+    const QueueManager = require('./src/queues/queueConfig');
+    const queueManager = QueueManager.getInstance();
+    await queueManager.closeAll();
+    logger.info('Queue connections closed');
+  } catch (error) {
+    logger.error('Error closing queues:', error);
+  }
+  
   server.close(() => {
     logger.info('HTTP server closed');
     process.exit(0);

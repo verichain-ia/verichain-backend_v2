@@ -473,18 +473,30 @@ class QueueManager {
   }
 }
 
-// Singleton
-const queueManager = new QueueManager();
+// Singleton con patrón getInstance
+let instance = null;
 
 // Graceful shutdown handlers
 process.on('SIGTERM', async () => {
-  logger.info('SIGTERM received, closing queue system...');
-  await queueManager.closeAll();
+  if (instance) {
+    logger.info('SIGTERM received, closing queue system...');
+    await instance.closeAll();
+  }
 });
 
 process.on('SIGINT', async () => {
-  logger.info('SIGINT received, closing queue system...');
-  await queueManager.closeAll();
+  if (instance) {
+    logger.info('SIGINT received, closing queue system...');
+    await instance.closeAll();
+  }
 });
 
-module.exports = queueManager;
+// Exportar con patrón getInstance
+module.exports = {
+  getInstance: () => {
+    if (!instance) {
+      instance = new QueueManager();
+    }
+    return instance;
+  }
+};
