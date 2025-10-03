@@ -1,57 +1,40 @@
 const Redis = require('ioredis');
 const logger = require('../utils/logger');
 
-// Parser para REDIS_URL
-function parseRedisUrl(url) {
-  if (!url) return null;
+function createRedisClient() {
+  const redisUrl = process.env.REDIS_URL;
   
-  try {
-    const parsed = new URL(url);
-    return {
-      host: parsed.hostname,
-      port: parsed.port || 6379,
-      password: parsed.password || undefined,
-      username: parsed.username || undefined
-    };
-  } catch (error) {
-    logger.error('Invalid REDIS_URL format:', error);
-    return null;
+  if (redisUrl) {
+    logger.info('Redis: Using REDIS_URL for connection');
+    return new Redis(redisUrl, {
+      maxRetriesPerRequest: 3,
+      retryStrategy: (times) => {
+        if (times > 10) return null;
+        const delay = Math.min(times * 100, 3000);
+        return delay;
+      },
+      enableReadyCheck: true,
+      lazyConnect: false
+    });
   }
-}
-
-// Configuración de Redis
-let redisConfig;
-
-if (process.env.REDIS_URL) {
-  // Si hay REDIS_URL, usarla (Railway/producción)
-  const parsed = parseRedisUrl(process.env.REDIS_URL);
-  if (parsed) {
-    redisConfig = parsed;
-    logger.info('Using REDIS_URL for connection');
-  }
-}
-
-if (!redisConfig) {
-  // Fallback a variables separadas (desarrollo local)
-  redisConfig = {
+  
+  const config = {
     host: process.env.REDIS_HOST || 'localhost',
     port: process.env.REDIS_PORT || 6379,
-    password: process.env.REDIS_PASSWORD || undefined
+    password: process.env.REDIS_PASSWORD || undefined,
+    db: process.env.REDIS_DB || 0,
+    maxRetriesPerRequest: 3,
+    retryStrategy: (times) => {
+      if (times > 10) return null;
+      return Math.min(times * 100, 3000);
+    }
   };
-  logger.info('Using individual Redis variables');
+  
+  logger.info('Redis: Using individual parameters', { host: config.host });
+  return new Redis(config);
 }
 
-// Agregar configuración adicional
-redisConfig.db = process.env.REDIS_DB || 0;
-redisConfig.retryStrategy = (times) => {
-  const delay = Math.min(times * 50, 2000);
-  return delay;
-};
-redisConfig.maxRetriesPerRequest = 3;
-redisConfig.enableReadyCheck = true;
-redisConfig.lazyConnect = false;
-
-const redis = new Redis(redisConfig);
+const redis = createRedisClient();
 
 redis.on('connect', () => {
   logger.info('Redis client connected successfully');
@@ -62,7 +45,7 @@ redis.on('ready', () => {
 });
 
 redis.on('error', (error) => {
-  logger.error('Redis client error:', error);
+  logger.error('Redis client error:', error.message);
 });
 
 redis.on('close', () => {

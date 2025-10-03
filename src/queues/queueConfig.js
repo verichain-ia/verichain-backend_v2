@@ -12,6 +12,7 @@ class QueueManager {
   getRedisConfig() {
     // Si hay REDIS_URL, usarla directamente (Railway)
     if (process.env.REDIS_URL) {
+        console.log("DEBUG - REDIS_URL:", process.env.REDIS_URL ? "EXISTS" : "NOT FOUND");
       logger.info('Using REDIS_URL for Bull queues');
       return process.env.REDIS_URL;
     }
