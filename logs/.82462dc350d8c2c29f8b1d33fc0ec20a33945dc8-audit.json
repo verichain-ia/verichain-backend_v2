@@ -29,6 +29,11 @@
             "date": 1759421104436,
             "name": "/Users/macbookpro/Desktop/verichain/verichain-v2/backend/logs/error-2025-10-02.log",
             "hash": "435f204ec2d59539a490a6e2037bcafe00017116a3246035a1c49c93acadf7db"
+        },
+        {
+            "date": 1759504649338,
+            "name": "/Users/macbookpro/Desktop/verichain/verichain-v2/backend/logs/error-2025-10-03.log",
+            "hash": "613d0ad332f8280bc9fedce726d773f2cc54cf189ae4621c6a6c02b65f2d18d5"
         }
     ],
     "hashType": "sha256"
