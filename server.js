@@ -17,7 +17,7 @@ const metricsMiddleware = require('./src/middleware/metrics');
 const correlationIdMiddleware = require('./src/middleware/correlationId');
 
 const app = express();
-app.set('trust proxy', true);
+app.set('trust proxy', 1);
 
 // Middleware básicos - ORDEN IMPORTANTE
 app.use(securityConfig.helmet);
