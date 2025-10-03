@@ -9,15 +9,15 @@ class QueueManager {
     this.initialized = false;
   }
 
-  async init() {
-    if (this.initialized) {
-      logger.warn('QueueManager already initialized');
-      return;
+  getRedisConfig() {
+    // Si hay REDIS_URL, usarla directamente (Railway)
+    if (process.env.REDIS_URL) {
+      logger.info('Using REDIS_URL for Bull queues');
+      return process.env.REDIS_URL;
     }
-
-    logger.info('Initializing Queue Management System...');
     
-    const redisConfig = {
+    // Fallback a configuración separada
+    return {
       host: process.env.REDIS_HOST || 'localhost',
       port: process.env.REDIS_PORT || 6379,
       password: process.env.REDIS_PASSWORD || undefined,
@@ -27,6 +27,17 @@ class QueueManager {
         return delay;
       }
     };
+  }
+
+  async init() {
+    if (this.initialized) {
+      logger.warn('QueueManager already initialized');
+      return;
+    }
+
+    logger.info('Initializing Queue Management System...');
+    
+    const redisConfig = this.getRedisConfig();
 
     // Definición completa de todas las queues
     const queueDefinitions = {
