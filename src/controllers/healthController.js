@@ -5,7 +5,7 @@ const os = require('os');
 const fs = require('fs').promises;
 
 class HealthController {
-  cconstructor() {
+  constructor() {
   this.redisClient = redis; // Usar la instancia ya configurada
 }
 
