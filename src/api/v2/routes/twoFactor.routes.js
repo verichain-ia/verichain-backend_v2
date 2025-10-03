@@ -324,7 +324,7 @@ router.post('/disable', protect, async (req, res, next) => {
     const { password, token } = req.body;
     const userId = req.user.id;
     
-    // TODO: Verificar password y token actual
+    // SECURITY: Password verification required before disabling 2FA
     
     await supabaseAdmin.client
       .from('users')

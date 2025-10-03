@@ -15,7 +15,7 @@ class PaseoBlockchainService {
 
   async initialize() {
     try {
-      console.log('🔄 Initializing Paseo Service...');
+      logger.info('🔄 Initializing Paseo Service...');
       
       await cryptoWaitReady();
       
@@ -30,9 +30,9 @@ class PaseoBlockchainService {
       const chain = await this.api.rpc.system.chain();
       const lastHeader = await this.api.rpc.chain.getHeader();
       
-      console.log('✅ Connected to:', chain.toString());
-      console.log('📦 Latest block:', lastHeader.number.toString());
-      console.log('👤 Account:', this.account.address);
+      logger.info('✅ Connected to:', chain.toString());
+      logger.info('📦 Latest block:', lastHeader.number.toString());
+      logger.info('👤 Account:', this.account.address);
       
       this.initialized = true;
       
@@ -50,7 +50,7 @@ class PaseoBlockchainService {
     
     // Configurar fallback
     breaker.fallback(() => {
-      console.log('⚠️ Blockchain service unavailable, using fallback');
+      logger.info('⚠️ Blockchain service unavailable, using fallback');
       return {
         success: true,
         txHash: `pending_${Date.now()}_${certificateData.id}`,
@@ -91,7 +91,7 @@ class PaseoBlockchainService {
     }
 
     try {
-      console.log('📝 Registering certificate:', certificateData.id);
+      logger.info('📝 Registering certificate:', certificateData.id);
       
       // Crear el payload
       const payload = JSON.stringify({
@@ -119,7 +119,7 @@ class PaseoBlockchainService {
       
       const hash = await Promise.race([txPromise, timeoutPromise]);
       
-      console.log('✅ Registered on Paseo:', hash.toHex());
+      logger.info('✅ Registered on Paseo:', hash.toHex());
       
       // Obtener información del bloque
       let blockNumber = null;
@@ -153,7 +153,7 @@ class PaseoBlockchainService {
     );
     
     breaker.fallback(() => {
-      console.log('⚠️ Cannot verify transaction, blockchain unavailable');
+      logger.info('⚠️ Cannot verify transaction, blockchain unavailable');
       return null;
     });
     
@@ -210,7 +210,7 @@ class PaseoBlockchainService {
       await this.api.disconnect();
       this.api = null;
       this.initialized = false;
-      console.log('🔌 Disconnected from Paseo');
+      logger.info('🔌 Disconnected from Paseo');
     }
   }
 }
