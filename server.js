@@ -1,3 +1,8 @@
+console.log("=== REDIS ENV CHECK ===");
+console.log("REDIS_URL:", process.env.REDIS_URL || "NOT SET");
+console.log("NODE_ENV:", process.env.NODE_ENV || "NOT SET");
+console.log("======================");
+
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
