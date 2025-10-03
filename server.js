@@ -30,7 +30,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// Swagger Configuration - ACTUALIZADO para v1 y v2
+// Swagger Configuration - ACTUALIZADO para v1 y v2 con schemas
 const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
@@ -60,6 +60,71 @@ const swaggerOptions = {
           scheme: 'bearer',
           bearerFormat: 'JWT'
         }
+      },
+      schemas: {
+        ErrorResponse: {
+          type: 'object',
+          properties: {
+            success: {
+              type: 'boolean',
+              example: false
+            },
+            error: {
+              type: 'string',
+              example: 'Error message'
+            },
+            code: {
+              type: 'string',
+              example: 'ERROR_CODE'
+            },
+            statusCode: {
+              type: 'number',
+              example: 400
+            }
+          }
+        },
+        ValidationErrorResponse: {
+          type: 'object',
+          properties: {
+            success: {
+              type: 'boolean',
+              example: false
+            },
+            errors: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  field: {
+                    type: 'string',
+                    example: 'email'
+                  },
+                  message: {
+                    type: 'string',
+                    example: 'Email is required'
+                  }
+                }
+              }
+            }
+          }
+        },
+        SuccessResponse: {
+          type: 'object',
+          properties: {
+            success: {
+              type: 'boolean',
+              example: true
+            },
+            data: {
+              type: 'object',
+              description: 'Response data'
+            },
+            message: {
+              type: 'string',
+              example: 'Operation successful'
+            }
+          }
+        }
       }
     },
     tags: [
@@ -71,7 +136,8 @@ const swaggerOptions = {
       { name: 'Two-Factor Authentication', description: 'Two-factor authentication' },
       { name: 'Cache', description: 'Cache management' },
       { name: 'Monitoring', description: 'Health checks and metrics' },
-      { name: 'Versioning', description: 'API version information' }
+      { name: 'Versioning', description: 'API version information' },
+      { name: 'Webhooks', description: 'Webhook configuration and management' }
     ]
   },
   apis: [
@@ -152,7 +218,8 @@ app.get('/', (req, res) => {
         analytics: '/api/v2/analytics',
         jobs: '/api/v2/jobs',
         cache: '/api/v2/cache',
-        health: '/api/v2/health'
+        health: '/api/v2/health',
+        webhooks: '/api/v2/webhooks'
       }
     }
   });
@@ -207,6 +274,7 @@ const server = app.listen(PORT, '0.0.0.0', async () => {
   console.log('   - Jobs: /api/v2/jobs/*');
   console.log('   - Cache: /api/v2/cache/*');
   console.log('   - Health: /api/v2/health/*');
+  console.log('   - Webhooks: /api/v2/webhooks/*');
   console.log('=====================================');
   console.log('🔍 Monitoring endpoints:');
   console.log('   - Liveness: /api/v{1,2}/health/live');

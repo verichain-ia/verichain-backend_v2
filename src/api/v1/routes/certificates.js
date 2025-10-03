@@ -15,6 +15,7 @@ const IdempotencyMiddleware = require('../../../middleware/idempotency');
 const ResponseFormatter = require('../../../middleware/responseFormatter');
 const CircuitBreakerFactory = require('../../../middleware/circuitBreaker');
 const cacheService = require('../../../services/cacheService');
+const webhookService = require('../../../services/webhookService');
 
 /**
  * @swagger
@@ -324,6 +325,14 @@ router.post('/',
         .single();
 
       logger.info(`Certificate ${id} created by user ${userId}`);
+
+      // Trigger webhook asynchronously - no bloquea la respuesta
+      if (webhookService && webhookService.triggerCertificateEvent) {
+        setImmediate(() => {
+          webhookService.triggerCertificateEvent('certificate.created', certificate || result.data[0])
+            .catch(err => logger.error('Webhook failed for certificate.created:', err));
+        });
+      }
 
       ResponseFormatter.created(
         res, 
@@ -832,7 +841,18 @@ router.post('/:id/register-blockchain',
         created_at: new Date().toISOString()
       });
 
-    res.json({
+    // Trigger webhook for blockchain registration
+      if (webhookService && webhookService.triggerCertificateEvent) {
+        setImmediate(() => {
+          webhookService.triggerCertificateEvent('certificate.blockchain_registered', {
+            ...cert,
+            tx_hash: blockchainResult.txHash,
+            block_number: blockchainResult.blockNumber
+          }).catch(err => logger.error('Webhook failed for blockchain registration:', err));
+        });
+      }
+    
+      res.json({
       success: true,
       message: 'Certificate successfully registered on blockchain',
       data: {
@@ -1009,6 +1029,17 @@ router.get('/:id/verify', async (req, res) => {
           error: 'Could not verify blockchain status'
         };
       }
+    }
+
+    // Trigger webhook for verification
+    if (webhookService && webhookService.triggerCertificateEvent) {
+      setImmediate(() => {
+        webhookService.triggerCertificateEvent('certificate.verified', {
+          certificate_id: cert.id,
+          verification_count: cert.verification_count + 1,
+          verified_at: new Date().toISOString()
+        }).catch(err => logger.error('Webhook failed for verification:', err));
+      });
     }
 
     res.json({
@@ -1194,6 +1225,14 @@ router.put('/:id',
 
     // Invalidar cache después de actualizar
       await cacheService.invalidateCertificate(id);
+
+      // Trigger webhook for update
+      if (webhookService && webhookService.triggerCertificateEvent) {
+        setImmediate(() => {
+          webhookService.triggerCertificateEvent('certificate.updated', data)
+            .catch(err => logger.error('Webhook failed for update:', err));
+        });
+      }
 
       res.json({
       success: true,

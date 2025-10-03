@@ -11,12 +11,11 @@ router.use('/cache', require('./cache.routes'));
 router.use('/health', require('./monitoring.routes'));
 router.use('/diagnostics', require('./diagnostics.routes'));
 router.use('/errors', require('./errors.routes'));
+router.use('/webhooks', require('./webhooks.routes'));
 
 // Analytics route (renombrado de metrics)
 router.use('/analytics', require('./metrics.routes'));
 
 // v2 new features (to be implemented)
-// router.use('/webhooks', require('./webhooks.routes'));
-// router.use('/batch', require('./batch.routes'));
 
 module.exports = router;
