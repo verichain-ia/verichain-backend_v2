@@ -3,6 +3,7 @@ const { ApiPromise, WsProvider } = require('@polkadot/api');
 const { Keyring } = require('@polkadot/keyring');
 const { cryptoWaitReady } = require('@polkadot/util-crypto');
 const CircuitBreakerFactory = require('../../middleware/circuitBreaker');
+const logger = require('../../utils/logger');
 
 class PaseoBlockchainService {
   constructor() {
