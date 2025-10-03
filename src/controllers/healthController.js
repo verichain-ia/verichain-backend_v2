@@ -5,14 +5,9 @@ const os = require('os');
 const fs = require('fs').promises;
 
 class HealthController {
-  constructor() {
-    this.redisClient = new redis({
-      host: process.env.REDIS_HOST || 'localhost',
-      port: process.env.REDIS_PORT || 6379,
-      password: process.env.REDIS_PASSWORD || undefined,
-      retryStrategy: (times) => Math.min(times * 50, 2000)
-    });
-  }
+  cconstructor() {
+  this.redisClient = redis; // Usar la instancia ya configurada
+}
 
   // Liveness probe - ¿El servidor responde?
   async getLiveness(req, res) {
