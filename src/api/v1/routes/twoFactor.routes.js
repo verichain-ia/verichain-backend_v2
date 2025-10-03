@@ -62,7 +62,7 @@ const logger = require('../../../utils/logger');
 
 /**
  * @swagger
- * /api/v1/auth/2fa/enable:
+ * /api/v1/2fa/enable:
  *   post:
  *     summary: Initialize 2FA setup
  *     description: |
@@ -145,7 +145,7 @@ router.post('/enable', protect, async (req, res, next) => {
 
 /**
  * @swagger
- * /api/v1/auth/2fa/verify-enable:
+ * /api/v1/2fa/verify-enable:
  *   post:
  *     summary: Verify and activate 2FA
  *     description: |
@@ -275,7 +275,7 @@ router.post('/verify-enable', protect, async (req, res, next) => {
 
 /**
  * @swagger
- * /api/v1/auth/2fa/disable:
+ * /api/v1/2fa/disable:
  *   post:
  *     summary: Disable 2FA
  *     description: |
