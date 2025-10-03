@@ -1,5 +1,5 @@
 const { supabase } = require('../services/supabaseService');
-const redis = require('ioredis');
+const redis = require('../config/redis');
 const QueueManager = require('../queues/queueConfig');
 const os = require('os');
 const fs = require('fs').promises;
