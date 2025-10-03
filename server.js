@@ -30,7 +30,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// Swagger Configuration - ACTUALIZADO para v1 y v2 con schemas
+// Swagger Configuration - MEJORADO para detectar todos los archivos
 const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
@@ -41,6 +41,10 @@ const swaggerOptions = {
       contact: {
         name: 'VeriChain Team',
         email: 'support@verichain.app'
+      },
+      license: {
+        name: 'MIT',
+        url: 'https://opensource.org/licenses/MIT'
       }
     },
     servers: [
@@ -124,12 +128,178 @@ const swaggerOptions = {
               example: 'Operation successful'
             }
           }
+        },
+        Certificate: {
+          type: 'object',
+          required: ['student_name', 'course_name'],
+          properties: {
+            id: {
+              type: 'string',
+              description: 'Unique certificate identifier',
+              example: 'CERT-ABC123'
+            },
+            student_name: {
+              type: 'string',
+              description: 'Full name of the student',
+              example: 'John Doe'
+            },
+            student_email: {
+              type: 'string',
+              format: 'email',
+              description: 'Student email address',
+              example: 'john@example.com'
+            },
+            course_name: {
+              type: 'string',
+              description: 'Name of the course',
+              example: 'Blockchain Development'
+            },
+            issue_date: {
+              type: 'string',
+              format: 'date',
+              description: 'Date when certificate was issued',
+              example: '2025-10-03'
+            },
+            blockchain_status: {
+              type: 'string',
+              enum: ['pending', 'confirmed', 'failed'],
+              description: 'Blockchain registration status',
+              example: 'confirmed'
+            },
+            tx_hash: {
+              type: 'string',
+              description: 'Blockchain transaction hash',
+              example: '0x123...'
+            },
+            verification_count: {
+              type: 'integer',
+              description: 'Number of times certificate has been verified',
+              example: 5
+            }
+          }
+        },
+        WebhookConfig: {
+          type: 'object',
+          properties: {
+            url: {
+              type: 'string',
+              format: 'uri',
+              description: 'Webhook endpoint URL',
+              example: 'https://example.com/webhook'
+            },
+            events: {
+              type: 'array',
+              description: 'Events to subscribe to',
+              items: {
+                type: 'string',
+                enum: ['certificate.created', 'certificate.updated', 'certificate.verified', 'certificate.blockchain_registered']
+              },
+              example: ['certificate.created', 'certificate.verified']
+            },
+            secret: {
+              type: 'string',
+              description: 'Secret key for HMAC signature validation',
+              example: 'webhook-secret-key'
+            },
+            enabled: {
+              type: 'boolean',
+              description: 'Whether webhook is active',
+              example: true
+            }
+          }
+        },
+        CacheStats: {
+          type: 'object',
+          properties: {
+            hits: {
+              type: 'integer',
+              description: 'Number of cache hits',
+              example: 150
+            },
+            misses: {
+              type: 'integer',
+              description: 'Number of cache misses',
+              example: 25
+            },
+            keys: {
+              type: 'integer',
+              description: 'Number of keys currently in cache',
+              example: 45
+            },
+            hitRate: {
+              type: 'string',
+              description: 'Cache hit rate percentage',
+              example: '85.7%'
+            },
+            memory: {
+              type: 'object',
+              properties: {
+                used: {
+                  type: 'string',
+                  example: '2.45 MB'
+                },
+                limit: {
+                  type: 'string',
+                  example: '512 MB'
+                }
+              }
+            }
+          }
+        },
+        VersionInfo: {
+          type: 'object',
+          properties: {
+            current: {
+              type: 'string',
+              description: 'Current recommended API version',
+              example: '1.0.0'
+            },
+            supported: {
+              type: 'array',
+              description: 'List of supported API versions',
+              items: {
+                type: 'string'
+              },
+              example: ['1.0.0', '2.0.0']
+            },
+            deprecated: {
+              type: 'array',
+              description: 'List of deprecated API versions',
+              items: {
+                type: 'string'
+              },
+              example: []
+            },
+            sunset: {
+              type: 'object',
+              description: 'Sunset dates for deprecated versions',
+              example: {}
+            },
+            links: {
+              type: 'object',
+              properties: {
+                v1: {
+                  type: 'string',
+                  example: '/api/v1'
+                },
+                v2: {
+                  type: 'string',
+                  example: '/api/v2'
+                },
+                documentation: {
+                  type: 'string',
+                  example: '/api-docs'
+                }
+              }
+            }
+          }
         }
       }
     },
     tags: [
       { name: 'Auth', description: 'Authentication endpoints' },
       { name: 'Certificates', description: 'Certificate management' },
+      { name: 'Certificates (v2)', description: 'Certificate management with caching and enhanced features' },
       { name: 'Organizations', description: 'Organization management' },
       { name: 'Metrics', description: 'Analytics and metrics' },
       { name: 'Queues', description: 'Queue management' },
@@ -137,22 +307,38 @@ const swaggerOptions = {
       { name: 'Cache', description: 'Cache management' },
       { name: 'Monitoring', description: 'Health checks and metrics' },
       { name: 'Versioning', description: 'API version information' },
-      { name: 'Webhooks', description: 'Webhook configuration and management' }
+      { name: 'Webhooks', description: 'Webhook configuration and management' },
+      { name: 'Errors', description: 'Error tracking and statistics' }
     ]
   },
   apis: [
-    './src/api/v1/routes/*.js', 
+    './src/api/versionRouter.js',
+    './src/api/v1/routes/*.js',
     './src/api/v1/routes/*.routes.js',
     './src/api/v2/routes/*.js',
     './src/api/v2/routes/*.routes.js',
-    './src/api/versionRouter.js'
+    './src/api/v1/controllers/*.js',
+    './src/api/v2/controllers/*.js'
   ]
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
+
+// Debug: Log cuántos endpoints fueron detectados
+console.log(`📄 Swagger detected ${Object.keys(swaggerSpec.paths || {}).length} API endpoints`);
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
   customCss: '.swagger-ui .topbar { display: none }',
-  customSiteTitle: "VeriChain API Docs"
+  customSiteTitle: "VeriChain API Docs",
+  explorer: true,
+  swaggerOptions: {
+    persistAuthorization: true,
+    displayRequestDuration: true,
+    docExpansion: 'none',
+    filter: true,
+    showExtensions: true,
+    showCommonExtensions: true
+  }
 }));
 
 // Health check legacy - mantener para compatibilidad

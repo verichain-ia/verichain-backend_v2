@@ -52,6 +52,55 @@ router.use('/', versionMiddleware('1.0.0', {
   note: 'Using default v1. Specify version explicitly.'
 }), v1Routes);
 
+/**
+ * @swagger
+ * /api/versions:
+ *   get:
+ *     summary: Get API version information
+ *     tags: [Versioning]
+ *     description: Returns information about available API versions, deprecation status, and links
+ *     responses:
+ *       200:
+ *         description: API version information
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 current:
+ *                   type: string
+ *                   description: Current recommended API version
+ *                   example: "1.0.0"
+ *                 supported:
+ *                   type: array
+ *                   description: List of supported API versions
+ *                   items:
+ *                     type: string
+ *                   example: ["1.0.0", "2.0.0"]
+ *                 deprecated:
+ *                   type: array
+ *                   description: List of deprecated API versions
+ *                   items:
+ *                     type: string
+ *                   example: []
+ *                 sunset:
+ *                   type: object
+ *                   description: Sunset dates for deprecated versions
+ *                   example: {}
+ *                 links:
+ *                   type: object
+ *                   properties:
+ *                     v1:
+ *                       type: string
+ *                       example: "/api/v1"
+ *                     v2:
+ *                       type: string
+ *                       example: "/api/v2"
+ *                     documentation:
+ *                       type: string
+ *                       example: "/api-docs"
+ */
+
 // Version info endpoint
 router.get('/versions', (req, res) => {
   res.json({

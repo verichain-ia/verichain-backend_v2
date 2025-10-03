@@ -10,8 +10,48 @@ const ResponseFormatter = require('../../../middleware/responseFormatter');
  *   get:
  *     summary: Get cache statistics
  *     tags: [Cache]
+ *     description: Returns current cache statistics including hit rate, memory usage, and key count
  *     security:
  *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Cache statistics retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     hits:
+ *                       type: integer
+ *                       example: 245
+ *                     misses:
+ *                       type: integer
+ *                       example: 45
+ *                     keys:
+ *                       type: integer
+ *                       example: 28
+ *                     hitRate:
+ *                       type: string
+ *                       example: "84.48%"
+ *                     memory:
+ *                       type: object
+ *                       properties:
+ *                         used:
+ *                           type: string
+ *                           example: "2.45 MB"
+ *                         limit:
+ *                           type: string
+ *                           example: "512 MB"
+ *       401:
+ *         description: Unauthorized - No token provided
+ *       500:
+ *         description: Internal server error
  */
 router.get('/stats', protect, async (req, res, next) => {
   try {
