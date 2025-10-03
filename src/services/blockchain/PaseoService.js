@@ -31,9 +31,9 @@ class PaseoBlockchainService {
       const chain = await this.api.rpc.system.chain();
       const lastHeader = await this.api.rpc.chain.getHeader();
       
-      logger.info('✅ Connected to:', chain.toString());
-      logger.info('📦 Latest block:', lastHeader.number.toString());
-      logger.info('👤 Account:', this.account.address);
+      logger.info(`✅ Connected to: ${chain.toString()}`);
+      logger.info(`📦 Latest block: ${lastHeader.number.toString()}`);
+      logger.info(`👤 Account: ${this.account.address}`);
       
       this.initialized = true;
       
@@ -92,7 +92,7 @@ class PaseoBlockchainService {
     }
 
     try {
-      logger.info('📝 Registering certificate:', certificateData.id);
+      logger.info(`📝 Registering certificate: ${certificateData.id}`);
       
       // Crear el payload
       const payload = JSON.stringify({
@@ -120,7 +120,7 @@ class PaseoBlockchainService {
       
       const hash = await Promise.race([txPromise, timeoutPromise]);
       
-      logger.info('✅ Registered on Paseo:', hash.toHex());
+      logger.info(`✅ Registered on Paseo: ${hash.toHex()}`);
       
       // Obtener información del bloque
       let blockNumber = null;
