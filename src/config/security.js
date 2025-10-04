@@ -40,6 +40,8 @@ const securityConfig = {
       const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
         'http://localhost:3000',
         'http://localhost:3001',
+        'http://localhost:8080',     // AGREGADO
+        'http://127.0.0.1:8080',     // AGREGADO
         'https://verichain.app'
       ];
       
@@ -53,7 +55,7 @@ const securityConfig = {
     },
     credentials: true,
     maxAge: 86400,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],  // AGREGADO OPTIONS
     allowedHeaders: [
       'Content-Type',
       'Authorization',

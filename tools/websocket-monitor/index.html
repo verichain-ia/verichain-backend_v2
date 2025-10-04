@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VeriChain WebSocket Monitor</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #1a1a1a; color: #fff; }
+        .connected { color: #00ff00; font-weight: bold; }
+        .disconnected { color: #ff0000; }
+        button { margin: 5px; padding: 10px; cursor: pointer; }
+        .card { background: #2a2a2a; padding: 15px; margin: 10px 0; border-radius: 8px; }
+        pre { background: #000; padding: 10px; overflow-x: auto; font-size: 12px; }
+        .alert { background: #ff000033; border: 1px solid #ff0000; padding: 10px; margin: 5px 0; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>VeriChain WebSocket Monitor</h1>
+    <div id="status" class="disconnected">Initializing...</div>
+    
+    <div>
+        <button onclick="connect()">Connect</button>
+        <button onclick="disconnect()">Disconnect</button>
+        <button onclick="subscribeMetrics()">Subscribe Metrics</button>
+        <button onclick="subscribeAlerts()">Subscribe Alerts</button>
+        <button onclick="testAlert()">Test Alert (HTTP)</button>
+    </div>
+    
+    <div class="card">
+        <h3>Connection Info</h3>
+        <div id="connection-info">Not connected</div>
+    </div>
+    
+    <div class="card">
+        <h3>Metrics</h3>
+        <pre id="metrics">Waiting for connection...</pre>
+    </div>
+    
+    <div class="card">
+        <h3>Alerts</h3>
+        <div id="alerts">No alerts</div>
+    </div>
+    
+    <div class="card">
+        <h3>Debug Log</h3>
+        <pre id="debug" style="height: 200px; overflow-y: auto;"></pre>
+    </div>
+
+    <script>
+        let socket = null;
+        const API_URL = 'http://localhost:4000';
+        
+        function log(message) {
+            const debug = document.getElementById('debug');
+            const time = new Date().toLocaleTimeString();
+            debug.innerHTML = `${time}: ${message}\n` + debug.innerHTML;
+            console.log(message);
+        }
+        
+        function connect() {
+            log('Attempting to connect to ' + API_URL);
+            
+            socket = io(API_URL, {
+                transports: ['websocket', 'polling'],
+                reconnection: true
+            });
+            
+            socket.on('connect', () => {
+                document.getElementById('status').className = 'connected';
+                document.getElementById('status').innerHTML = 'Connected: ' + socket.id;
+                document.getElementById('connection-info').innerHTML = 
+                    `Socket ID: ${socket.id}<br>Transport: ${socket.io.engine.transport.name}`;
+                log('Connected successfully with ID: ' + socket.id);
+            });
+            
+            socket.on('welcome', (data) => {
+                log('Welcome message: ' + JSON.stringify(data));
+            });
+            
+            socket.on('metrics:update', (data) => {
+                document.getElementById('metrics').innerHTML = JSON.stringify(data, null, 2);
+                log('Metrics updated');
+            });
+            
+            socket.on('metrics:subscribed', (data) => {
+                log('Metrics subscription confirmed: ' + data.message);
+            });
+            
+            socket.on('alerts:subscribed', (data) => {
+                log('Alerts subscription confirmed: ' + data.message);
+            });
+            
+            socket.on('alert:new', (data) => {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'alert';
+                alertDiv.innerHTML = `⚠️ ${new Date().toLocaleTimeString()} - ${JSON.stringify(data)}`;
+                document.getElementById('alerts').prepend(alertDiv);
+                log('New alert received!');
+            });
+            
+            socket.on('health:update', (data) => {
+                log('Health update received');
+            });
+            
+            socket.on('disconnect', () => {
+                document.getElementById('status').className = 'disconnected';
+                document.getElementById('status').innerHTML = 'Disconnected';
+                document.getElementById('connection-info').innerHTML = 'Not connected';
+                log('Disconnected from server');
+            });
+            
+            socket.on('connect_error', (error) => {
+                log('Connection error: ' + error.message);
+            });
+        }
+        
+        function disconnect() {
+            if (socket) {
+                socket.disconnect();
+                log('Manually disconnected');
+            }
+        }
+        
+        function subscribeMetrics() {
+            if (socket && socket.connected) {
+                socket.emit('subscribe:metrics');
+                log('Requesting metrics subscription...');
+            } else {
+                log('Not connected!');
+            }
+        }
+        
+        function subscribeAlerts() {
+            if (socket && socket.connected) {
+                socket.emit('subscribe:alerts');
+                log('Requesting alerts subscription...');
+            } else {
+                log('Not connected!');
+            }
+        }
+        
+        function testAlert() {
+            log('Sending test alert via HTTP...');
+            fetch(API_URL + '/api/v2/monitoring/alert-test', {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => log('Alert response: ' + JSON.stringify(data)))
+            .catch(error => log('Alert error: ' + error.message));
+        }
+        
+        // Auto-connect on load
+        window.addEventListener('load', () => {
+            log('Page loaded, attempting auto-connect...');
+            setTimeout(connect, 1000);
+        });
+    </script>
+</body>
+</html>

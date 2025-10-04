@@ -12,6 +12,7 @@ router.use('/health', require('./monitoring.routes'));
 router.use('/diagnostics', require('./diagnostics.routes'));
 router.use('/errors', require('./errors.routes'));
 router.use('/webhooks', require('./webhooks.routes'));
+router.use('/monitoring', require('./monitoring.routes'));
 
 // Analytics route (renombrado de metrics)
 router.use('/analytics', require('./metrics.routes'));

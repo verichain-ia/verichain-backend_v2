@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.42% </span>
+                <span class="strong">39.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>69/175</span>
+                <span class='fraction'>71/179</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">32.5% </span>
+                <span class="strong">32.92% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>26/80</span>
+                <span class='fraction'>27/82</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.71% </span>
+                <span class="strong">37.93% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>10/28</span>
+                <span class='fraction'>11/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">40.22% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>68/170</span>
+                <span class='fraction'>70/174</span>
             </div>
         
             
@@ -564,7 +564,19 @@
 <a name='L499'></a><a href='#L499'>499</a>
 <a name='L500'></a><a href='#L500'>500</a>
 <a name='L501'></a><a href='#L501'>501</a>
-<a name='L502'></a><a href='#L502'>502</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L502'></a><a href='#L502'>502</a>
+<a name='L503'></a><a href='#L503'>503</a>
+<a name='L504'></a><a href='#L504'>504</a>
+<a name='L505'></a><a href='#L505'>505</a>
+<a name='L506'></a><a href='#L506'>506</a>
+<a name='L507'></a><a href='#L507'>507</a>
+<a name='L508'></a><a href='#L508'>508</a>
+<a name='L509'></a><a href='#L509'>509</a>
+<a name='L510'></a><a href='#L510'>510</a>
+<a name='L511'></a><a href='#L511'>511</a>
+<a name='L512'></a><a href='#L512'>512</a>
+<a name='L513'></a><a href='#L513'>513</a>
+<a name='L514'></a><a href='#L514'>514</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -573,6 +585,26 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -584,15 +616,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1064,6 +1087,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/queues/queueConfig.js - VERSIÓN COMERCIAL COMPLETA
 const Bull = require('bull');
@@ -1076,15 +1100,15 @@ class QueueManager {
     this.initialized = false;
   }
 &nbsp;
-  async init() {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.initialized) {
-<span class="cstat-no" title="statement not covered" >      logger.warn('QueueManager already initialized');</span>
-<span class="cstat-no" title="statement not covered" >      return;</span>
+  getRedisConfig() {
+    // Si hay REDIS_URL, usarla directamente (Railway)
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (process.env.REDIS_URL) {
+<span class="cstat-no" title="statement not covered" >        logger.info('Using REDIS_URL for Bull queues');</span>
+<span class="cstat-no" title="statement not covered" >      return process.env.REDIS_URL;</span>
     }
-&nbsp;
-    logger.info('Initializing Queue Management System...');
     
-    const redisConfig = {
+    // Fallback a configuración separada
+    return {
       host: process.env.REDIS_HOST || 'localhost',
       port: process.env.REDIS_PORT || 6379,
       password: process.env.REDIS_PASSWORD || undefined,
@@ -1094,6 +1118,17 @@ class QueueManager {
 <span class="cstat-no" title="statement not covered" >        return delay;</span>
       }
     };
+  }
+&nbsp;
+  async init() {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.initialized) {
+<span class="cstat-no" title="statement not covered" >      logger.warn('QueueManager already initialized');</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+&nbsp;
+    logger.info('Initializing Queue Management System...');
+    
+    const redisConfig = this.getRedisConfig();
 &nbsp;
     // Definición completa de todas las queues
     const queueDefinitions = {
@@ -1566,14 +1601,15 @@ module.exports = {
     }
     return instance;
   }
-};</pre></td></tr></table></pre>
+};
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-02T22:53:48.486Z
+                at 2025-10-03T22:19:13.754Z
             </div>
         <script src="../prettify.js"></script>
         <script>

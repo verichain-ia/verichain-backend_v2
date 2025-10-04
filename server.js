@@ -437,7 +437,16 @@ app.use(errorHandler);
 
 // Start server con inicialización correcta
 const PORT = process.env.PORT || 4000;
-const server = app.listen(PORT, '0.0.0.0', async () => {
+// Crear servidor HTTP para soportar WebSocket
+const http = require('http');
+const httpServer = http.createServer(app);
+
+// Inicializar WebSocket
+const socketService = require('./src/services/socketService');
+socketService.initialize(httpServer);
+
+// Start server con inicialización correcta
+const server = httpServer.listen(PORT, '0.0.0.0', async () => {
   logger.info(`Server started on port ${PORT}`);
   
   console.log('\n🚀 VeriChain Backend v2.0 - Multi-Version API');
@@ -474,6 +483,11 @@ const server = app.listen(PORT, '0.0.0.0', async () => {
   console.log('   - Startup: /api/v{1,2}/health/startup');
   console.log('   - Prometheus: /api/v{1,2}/metrics');
   console.log('=====================================\n');
+  console.log('🔌 WebSocket endpoints:');
+  console.log('   - Connection: ws://localhost:' + PORT);
+  console.log('   - Events: health:update, metrics:update, alert:new');
+  console.log('   - Stats: /api/v2/monitoring/websocket/stats');
+  console.log('=====================================\n');
   
   // Initialize services DESPUÉS de que el servidor esté corriendo
   try {
@@ -503,6 +517,33 @@ const server = app.listen(PORT, '0.0.0.0', async () => {
     logger.error('Service initialization error:', error);
     // El servidor continúa aunque algunos servicios fallen
   }
+
+  // Iniciar monitoreo automático
+  try {
+    const monitoringService = require('./src/services/monitoringService');
+    
+    // Iniciar monitoreo cada 5 minutos solo en producción
+    if (process.env.NODE_ENV === 'production') {
+      monitoringService.startAutoMonitoring(5);
+      logger.info('🔍 Auto-monitoring activated (every 5 minutes)');
+    }
+    
+    // Endpoint público de estado (sin autenticación)
+    app.get('/status', async (req, res) => {
+      const health = await monitoringService.checkSystemHealth();
+      res.status(health.alerts.length > 0 ? 503 : 200).json({
+        status: health.alerts.length > 0 ? 'degraded' : 'operational',
+        alerts: health.alerts,
+        services: health.services
+      });
+    });
+    
+    logger.info('📊 Monitoring endpoints ready: /status');
+  } catch (error) {
+    logger.error('Monitoring service initialization error:', error);
+    // No crashear si el monitoreo falla
+  }
+
 });
 
 // Graceful shutdown mejorado
@@ -543,5 +584,22 @@ process.on('SIGINT', async () => {
     process.exit(0);
   });
 });
+
+// Backup automático diario a las 2 AM (solo en producción)
+if (process.env.NODE_ENV === 'production') {
+  const cron = require('node-cron');
+  cron.schedule('0 2 * * *', () => {
+    console.log('🔄 Running daily backup to cloud...');
+    const { exec } = require('child_process');
+    exec('npm run backup:cloud', (error, stdout, stderr) => {
+      if (error) {
+        console.error('Backup failed:', error);
+      } else {
+        console.log('Backup output:', stdout);
+      }
+    });
+  });
+  console.log('📅 Daily backup scheduled for 2 AM');
+}
 
 module.exports = app;
